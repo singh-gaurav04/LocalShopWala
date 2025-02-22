@@ -1,13 +1,16 @@
-const express = require('express')
+const connectDB = require('./config/mongoose.connection.js')
+const app = require('./app.js')
 
-const app = express()
+require('dotenv').config();
 
-app.get('/', (req, res) => {
-  res.send('hello world')
+connectDB()
+.then(()=>{
+    const port = process.env.PORT || 3000;
+    app.listen(port);
+    console.log(`app is listening at the port ${port}`)
+})
+.catch((err)=>{
+    console.log("MongoDB connection failed",err)
 })
 
-const port = process.env.PORT || 5000
 
-app.listen(port, () => {
-  console.log(`listening on port port`)
-})
