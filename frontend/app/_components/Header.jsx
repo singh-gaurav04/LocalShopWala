@@ -1,8 +1,8 @@
+"use client";
 import { LayoutGrid, Search, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,8 +11,25 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import GlobalApi from "../_utils/GlobalApi";
 
 const Header = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getCategoryList();
+  }, []);
+
+  const getCategoryList = async () => {
+    try {
+      const res = await GlobalApi.getCategories();
+      console.log("Category List:", res.data.data);
+      setCategories(res.data.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
   return (
     <div className='p-4 shadow-md flex justify-between'>
       <div className='flex  items-center gap-8'>
@@ -34,10 +51,30 @@ const Header = () => {
           <DropdownMenuContent>
             <DropdownMenuLabel>Browse Category</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuItem>Subscription</DropdownMenuItem>
+
+            {categories.map((category, index) => {
+              const baseUrl = "http://localhost:1337";
+
+              //  imaage fetch problem
+
+               const imageUrl = `${baseUrl}${category.icon[0].formats.small.url}`;
+              return (
+                <DropdownMenuItem key={index} className="flex items-center gap-3 cursor-pointer ">
+                 
+                  <Image
+                    src={imageUrl}
+                    alt={category.name || "Category Icon"}
+                    width={24}
+                    height={24}
+                    unoptimized={true}
+                  />
+                  <h2 className='font-semibold capitalize text-md'>
+                    {category.name}
+                  </h2>
+                
+                </DropdownMenuItem>
+              );
+            })}
           </DropdownMenuContent>
         </DropdownMenu>
 
