@@ -24,8 +24,14 @@ const getSliders = () =>
       return res.data.data;
     });
 
+    const getproducts = () =>
+      axiosClient.get("/products?populate=*").then((res) => {
+        return res.data.data;
+      });
+
 export default {
   getCategories,
   getSliders,
-  getCategoryList
+  getCategoryList,
+  getproducts
 };

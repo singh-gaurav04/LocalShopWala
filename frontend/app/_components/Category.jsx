@@ -10,13 +10,14 @@ const Category = ({ categoryList }) => {
       <div className='grid grid-cols-3 sm:grid-cols-4 gap-5 md:grid-cols-6 lg:grid-cols-7 mt-3 '>
         {categoryList.map((item, index) => {
           const baseUrl = "http://localhost:1337";
-          const imageUrl = `${baseUrl}${item.icon[0].formats.small.url}`;
+          const imageUrl = `${baseUrl}${item.icon[0].formats.thumbnail.url}`;
           return (
             <div
-              key={index}
+            key={index}
               className='flex flex-col items-center gap-2 bg-green-50 p-3 cursor-pointer rounded-lg group hover:bg-green-200'
             >
               <Image
+              
                 src={imageUrl}
                 alt='Category Icon'
                 width={50}
