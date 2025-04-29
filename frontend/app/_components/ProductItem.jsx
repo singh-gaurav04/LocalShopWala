@@ -7,7 +7,7 @@ const ProductItem = ({ product }) => {
   const imageUrl = `${baseUrl}${product.images[0].formats.thumbnail.url}`;
 
   return (
-    <div className='p-2 md:p-6 flex flex-col items-center justify-center gap-3 border rounded-lg shadow-md font-bold group hover:bg-green-100'>
+    <div className='p-2 md:p-6 flex flex-col items-center justify-center gap-3 border rounded-lg shadow-md font-bold group hover:bg-green-100 hover:scale-105'>
       <Image
         src={imageUrl}
         width={500}

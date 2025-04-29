@@ -7,9 +7,9 @@ const Products = ({ productList }) => {
       <h2 className='font-bold text-green-600 capitalize text-xl'>
         Our popular products
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-5">
         {productList.map((product, index) => (
-          <ProductItem key='index' product={product} />
+          index < 8 && <ProductItem key={index} product={product} />
         ))}
       </div>
     </div>
